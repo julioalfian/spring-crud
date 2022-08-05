@@ -23,7 +23,7 @@ public class StudentService {
     }
 
     public Student get(Integer id){
-        return studentRepository.findById(id).get();
+        return studentRepository.findById(id).orElse(new Student());
     }
 
     public void delete(Integer id){
