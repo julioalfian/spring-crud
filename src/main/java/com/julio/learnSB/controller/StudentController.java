@@ -1,6 +1,8 @@
 package com.julio.learnSB.controller;
 
 import com.julio.learnSB.model.Student;
+import com.julio.learnSB.request.StudentRequest;
+import com.julio.learnSB.response.BaseResponse;
 import com.julio.learnSB.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,49 +14,16 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/student")
-public class StudentController {
-
-    @Autowired
-    private StudentService studentService;
+public interface StudentController {
 
     @GetMapping("/getAll")
-    public List<Student> list() {
-        return studentService.listAll();
-    }
+    public ResponseEntity<BaseResponse> StudentListResponse();
 
-    @PostMapping("/add")
-    public String add(@RequestBody Student student){
-        studentService.save(student);
-        return "New Student Added";
-    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> get(@PathVariable Integer id){
-        try {
-            Student student = studentService.get(id);
-            return new ResponseEntity<Student>(student, HttpStatus.OK);
+    public ResponseEntity<BaseResponse> getDetail(@PathVariable Integer id);
 
-        } catch (NoSuchElementException e){
-            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
-        }
-    }
+    @PostMapping("/add")
+    public ResponseEntity<BaseResponse> save(@RequestBody StudentRequest studentRequest);
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Student> update(@RequestBody Student student, @PathVariable Integer id){
-        try{
-            Student existingStudent = studentService.get(id);
-           if( existingStudent!=null)
-               student.setId(existingStudent.getId());
-            studentService.save(student);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (NoSuchElementException e){
-            return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable Integer id){
-        studentService.delete(id);
-        return "Delete student successfull with id:" + id;
-    }
 }

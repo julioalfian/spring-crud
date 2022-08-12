@@ -1,32 +1,18 @@
 package com.julio.learnSB.service;
 
-import com.julio.learnSB.model.Student;
-import com.julio.learnSB.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.julio.learnSB.request.StudentRequest;
+import com.julio.learnSB.response.StudentListResponse;
+import com.julio.learnSB.response.StudentResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+public interface StudentService {
 
-public class StudentService {
+    StudentResponse getDetail(Integer id);
 
-    @Autowired
-    private StudentRepository studentRepository;
+    List<StudentListResponse> getListStudent();
 
-    public List<Student> listAll() {
-        return studentRepository.findAll();
-    }
-
-    public void save(Student student){
-        studentRepository.save(student);
-    }
-
-    public Student get(Integer id){
-        return studentRepository.findById(id).orElse(new Student());
-    }
-
-    public void delete(Integer id){
-        studentRepository.deleteById(id);
-    }
+    String save(StudentRequest studentRequest);
 }
