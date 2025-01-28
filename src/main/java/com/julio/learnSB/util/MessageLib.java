@@ -14,4 +14,18 @@ public class MessageLib {
     public String getAddSuccess() {return messageConfig.get("student.save");}
 
     public String saveStudentFailed() {return messageConfig.get("student.save.failed");}
+
+    public String getAccountSaveAccountEmailError() {
+        return messageConfig.get("account.save.account.email.error");
+    }
+
+    public String getAccountNotFoundError() {
+        return messageConfig.get("account.notfound.error");
+    }
+
+    public String emailNotValid() {return messageConfig.get("account.email.not.valid");}
+
+    public String getLoginFailedError() {
+        return messageConfig.get("login.failed.error");
+    }
 }
